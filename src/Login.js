@@ -2,6 +2,8 @@ import React from 'react';
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { useState } from 'react';
+import { auth } from './firebase';
+
 function Login() {
 
     const [email, setEmail] = useState('');
@@ -9,6 +11,21 @@ function Login() {
 
     const signIn=e=>{
         e.preventDefault();
+    }
+
+    const register = e => {
+        e.preventDefault();
+
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((auth) => {
+                // it successfully created a new user with email and password
+                // if (auth) {
+                //     history.push('/')
+                // }
+                console.log(auth);
+            })
+            .catch(error => alert(error.message))
     }
   return (
     <div className='login'>
@@ -39,7 +56,7 @@ function Login() {
             see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
         </p>
 
-        <button className='login__registerButton'>Create your Amazon Account</button>
+        <button className='login__registerButton' onClick={register} >Create your Amazon Account</button>
     </div>
 </div>
   )
