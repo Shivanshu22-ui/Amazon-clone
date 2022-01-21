@@ -6,6 +6,7 @@ import Checkout from "./Checkout";
 import Login from "./Login";
 import React,{useEffect} from "react";
 import {auth} from "./firebase";
+import Payment from "./Payment";
 import {useStateValue, useStatevalue} from "./StateProvider";
 
 function App() {
@@ -44,6 +45,11 @@ function App() {
           <Route path="/checkout">
           <Header />
             <Checkout />
+          </Route>
+          <Route path="/payment">
+          <Header />
+            <h1>payment page</h1>
+            <Payment/>
           </Route>
           {/* always put the default router at the end */}
           <Route path="/">
