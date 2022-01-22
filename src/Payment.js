@@ -38,10 +38,12 @@ function Payment() {
     }, [basket]) 
 
     console.log(clientSecret);
+    console.log('👱', user);
+    
 
     const handleChange = event => {
         // Listen for changes in the CardElement
-        // and display any errors as the customer types their card details
+        // and display any errors as the customer types their card details   
         setDisabled(event.empty);
         setError(event.error ? event.error.message : "");
     }
@@ -58,28 +60,29 @@ function Payment() {
             }
         }).then(({ paymentIntent }) => {
             // paymentIntent = payment confirmation
-
-            // db
-            //   .collection('users')
-            //   .doc(user?.uid)
-            //   .collection('orders')
-            //   .doc(paymentIntent.id)
-            //   .set({
-            //       basket: basket,
-            //       amount: paymentIntent.amount,
-            //       created: paymentIntent.created
-            //   })
-
+            console.log("payment intent is",paymentIntent);
+            db
+            .collection('users')
+            .doc(user?.uid)
+            .collection('orders')
+            .doc(paymentIntent.id)
+            .set({
+                basket: basket,
+                amount: paymentIntent.amount,
+                created: paymentIntent.created
+            })
+            
             setSucceeded(true);
             setError(null)
             setProcessing(false)
-
-            // dispatch({
-            //     type: 'EMPTY_BASKET'
-            // })
-
+            
+            dispatch({
+                type: 'EMPTY_BASKET'
+            })
+            
             history.replace('/orders')
         })
+        // console.log("payment intent outside the f is",paymentIntent);
 
     }
 
@@ -108,7 +111,7 @@ function Payment() {
         {/* Payment section - Review Items */}
         <div className='payment__section'>
             <div className='payment__title'>
-                <h3>Review items and delivery</h3>
+                <h3>Review items and delivery </h3>
             </div>
             <div className='payment__items'>
                 {basket.map(item => (
