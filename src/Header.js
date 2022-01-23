@@ -21,6 +21,8 @@ function Header() {
         <img
           className="header__logo"
           src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+          // src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+          // https://m.media-amazon.com/images/I/71L0GUJnaHL._SX3000_.jpg
         />
       </Link>
 
